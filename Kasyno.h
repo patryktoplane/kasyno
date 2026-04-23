@@ -7,10 +7,14 @@ class Kasyno
 private:
     Karta talia[52];
     int aktualnaKarta;
-    Gracz gracze[3];
+    Gracz* gracze;
+    int liczbaGraczy;
 
 public:
-    Kasyno();
+    Kasyno(int liczbaGraczy);
+    ~Kasyno();
     Karta* dajKarte();
     void graj();
+    void tasujKarty();
+    bool czyWszyscySpasowali();
 };

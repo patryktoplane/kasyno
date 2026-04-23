@@ -1,15 +1,24 @@
 #include "Gracz.h"
+#include "Kasyno.h"
+#include <iostream>
 using namespace std;
 
 Gracz::Gracz()
 {
     liczbaKart = 0;
     sumaPunktow = 0;
+    pass = false;
+    kasyno = nullptr;
 
     for (int i = 0; i < 10; i++)
     {
         reka[i] = nullptr;
     }
+}
+
+void Gracz::ustawKasyno(Kasyno* _kasyno)
+{
+    kasyno = _kasyno;
 }
 
 void Gracz::wezKarte(Karta* _karta)
@@ -33,4 +42,37 @@ void Gracz::pokazKarty()
     }
 
     cout << endl << "Suma punktow: " << sumaPunktow << endl;
+}
+
+void Gracz::wykonajRuch()
+{
+    if (pass)
+    {
+        return;
+    }
+
+    int wybor;
+
+    cout << "Obecne karty:" << endl;
+    pokazKarty();
+
+    cout << "1: Pass\n2: Dobierz" << endl;
+    cin >> wybor;
+
+    if (wybor == 1)
+    {
+        pass = true;
+    }
+    else if (wybor == 2)
+    {
+        if (kasyno != nullptr)
+        {
+            wezKarte(kasyno->dajKarte());
+        }
+    }
+}
+
+bool Gracz::czyPass()
+{
+    return pass;
 }

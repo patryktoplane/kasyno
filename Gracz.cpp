@@ -46,7 +46,7 @@ void Gracz::pokazKarty()
 
 void Gracz::wykonajRuch()
 {
-    if (pass)
+    if (pass == true)
     {
         return;
     }
@@ -65,14 +65,43 @@ void Gracz::wykonajRuch()
     }
     else if (wybor == 2)
     {
-        if (kasyno != nullptr)
+        wezKarte(kasyno->dajKarte());
+
+        if (sumaPunktow > 21)
         {
-            wezKarte(kasyno->dajKarte());
+            cout << "Przekroczono 21 punktow. Gracz konczy gre." << endl;
+            pass = true;
         }
+    }
+}
+void Gracz::resetujGracza()
+{
+    liczbaKart = 0;
+    sumaPunktow = 0;
+    pass = false;
+
+    for (int i = 0; i < 10; i++)
+    {
+        reka[i] = nullptr;
     }
 }
 
 bool Gracz::czyPass()
 {
     return pass;
+}
+
+bool Gracz::czyPrzegral()
+{
+    if (sumaPunktow > 21)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+int Gracz::getSumaPunktow()
+{
+    return sumaPunktow;
 }
